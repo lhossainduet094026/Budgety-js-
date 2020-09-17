@@ -90,7 +90,7 @@ return{
                     else{
                         data.percentage=-1;
                     }
-                    console.log('calculate budget working');
+                    
             },
             getBudget:function(){
             return{
