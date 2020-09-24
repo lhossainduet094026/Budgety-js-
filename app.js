@@ -6,8 +6,11 @@ var Expense=function(id,description,value){//function constructor
     this.id = id;
     this.description = description;
     this.value = value;
+    this.percentage=-1;
 };
-
+Expense.prototype.calcPercentage=function(totalIncome){
+this.percentage = (this.value/totalIncome)*100;
+}
 var Income=function(id,description,value){//function constructor
     this.id = id;
     this.description = description;
@@ -91,6 +94,9 @@ return{
                         data.percentage=-1;
                     }
                     
+            },
+            calculatePercentage:function(){
+             
             },
             getBudget:function(){
             return{
@@ -221,7 +227,7 @@ var controller = (function(budgetCtrl,UICtrl){
    var updatePercentages = function(){
 
     //1.calculate the percentages
-
+     
     //2.read percentages from the budgetcontroller
 
     //update UI with the new percentages
@@ -243,7 +249,9 @@ var controller = (function(budgetCtrl,UICtrl){
             //5.CALCULAE AND UPDATE BUDGET
             updateBudget();
 
-        // console.log('it works.');
+            //6.calculate and update percentages
+            updatePercentages();
+        
         }
     };
     var ctrlDeleteItem = function(event){
@@ -261,6 +269,8 @@ var controller = (function(budgetCtrl,UICtrl){
              UICtrl.deleteListItem(itemId);
             //3.update and show the new totals
             updateBudget();
+             //4.calculate and update percentages
+             updatePercentages();
         }
     }
 return {
