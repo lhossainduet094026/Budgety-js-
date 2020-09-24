@@ -154,6 +154,11 @@ return{
      document.querySelector(element).insertAdjacentHTML('beforeend',newHtml);
     },
 
+    deleteListItem:function(selectorId){
+       var el =document.getElementById(selectorId); 
+       el.parentNode.removeChild(el);//delete item means delete child element from parent in the ui
+    },
+
     clearFields:function(){
         var fields,fieldArr;
         fields = document.querySelectorAll(DOMstrings.inputDescription+','+DOMstrings.inputValue);//querySelectorAll return a list
@@ -244,7 +249,7 @@ var controller = (function(budgetCtrl,UICtrl){
             //1.Delete the item from the datastructure 
              budgetCtrl.deleteItem(type,id);
             //2.delete the item from the UI
-
+             UICtrl.deleteListItem(itemId);
             //3.update and show the new totals
         }
     }
