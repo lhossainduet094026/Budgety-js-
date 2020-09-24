@@ -104,7 +104,7 @@ return{
             },
             calculatePercentage:function(){
              data.allItems.exp.forEach(function(cur){
-             current.calcPercentage();
+                cur.calcPercentage(data.totals.inc);
             });
             },
             getPercentages:function(){
@@ -242,9 +242,10 @@ var controller = (function(budgetCtrl,UICtrl){
    var updatePercentages = function(){
 
     //1.calculate the percentages
-     
+     budgetCtrl.calculatePercentage();
     //2.read percentages from the budgetcontroller
-
+     var percentages=budgetCtrl.getPercentages();
+     console.log(percentages);
     //update UI with the new percentages
    }
    
