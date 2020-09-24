@@ -8,7 +8,7 @@ var Expense=function(id,description,value){//function constructor
     this.value = value;
 };
 
-var Income=function(id,description,value){
+var Income=function(id,description,value){//function constructor
     this.id = id;
     this.description = description;
     this.value = value;
@@ -216,6 +216,15 @@ var controller = (function(budgetCtrl,UICtrl){
     //3.DISPLAY THE BUDGET ON TO THE UI
     UICtrl.displayBudget(budget);
     
+   }
+
+   var updatePercentages = function(){
+
+    //1.calculate the percentages
+
+    //2.read percentages from the budgetcontroller
+
+    //update UI with the new percentages
    }
    
     var ctrlAddItem  = function(){
