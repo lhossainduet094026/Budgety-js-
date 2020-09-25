@@ -141,7 +141,8 @@ var UIController = (function(){
         incomeLabel:'.budget__income--value',
         expenseLabel:'.budget__expenses--value',
         percentageLabel:'.budget__expenses--percentage',
-        container:'.container'
+        container:'.container',
+        expensesPercLabel:'.item__percentage'
 
     };
 //some code here
@@ -201,6 +202,9 @@ return{
                 document.querySelector(DOMstrings.percentageLabel).textContent ='---';
             }
       
+    },
+    diplayPercentages:function(percentages){
+
     },
     getDOMstrings:function(){
         return DOMstrings;
