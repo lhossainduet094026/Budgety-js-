@@ -204,7 +204,25 @@ return{
       
     },
     diplayPercentages:function(percentages){
-
+    var fields=document.querySelectorAll(DOMstrings.expensesPercLabel);
+    //old browser doesnot support foreach on nodelist .so either we convert into normal array or write own foreach method
+    //we are going to write own foreach 
+    var nodeListForEach=function(list,callback){
+        for(var i=0;i<list.length;i++){
+            callback(list[i],i);
+        }
+    }
+    nodeListForEach(fields,function(current,index){
+        if(percentages[index]>0){
+            current.textContent = percentages[index]+'%';
+        }
+        else
+        {
+            current.textContent = '---';
+        }
+    
+      
+     });
     },
     getDOMstrings:function(){
         return DOMstrings;
