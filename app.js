@@ -142,7 +142,8 @@ var UIController = (function(){
         expenseLabel:'.budget__expenses--value',
         percentageLabel:'.budget__expenses--percentage',
         container:'.container',
-        expensesPercLabel:'.item__percentage'
+        expensesPercLabel:'.item__percentage',
+        dateLabel:'.budget__title--month'
 
     };
      //These function is used for fomating the value in the UI
@@ -209,7 +210,6 @@ return{
          current.value="";
          fieldArr[0].focus();
         })
-
     },
     displayBudget:function(obj){
             var type;
@@ -223,7 +223,6 @@ return{
             }else{
                 document.querySelector(DOMstrings.percentageLabel).textContent ='---';
             }
-      
     },
     diplayPercentages:function(percentages){
     var fields=document.querySelectorAll(DOMstrings.expensesPercLabel);
@@ -246,7 +245,14 @@ return{
       
      });
     },
-   
+   displayMonth:function(){
+       var now,month,year,months;
+       months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+       now = new Date();
+        month=now.getMonth();
+       year = now.getFullYear();
+       document.querySelector(DOMstrings.dateLabel).textContent =months[month]+"-"+ year;
+   },
     getDOMstrings:function(){
         return DOMstrings;
     }
@@ -269,7 +275,6 @@ var controller = (function(budgetCtrl,UICtrl){
             }
         });
 
-
        // document.querySelector(DOM.container).addEventListener('click',ctrlDeleteItem);
        document.querySelector(DOM.container).addEventListener('click',ctrlDeleteItem);
    };
@@ -283,9 +288,7 @@ var controller = (function(budgetCtrl,UICtrl){
     UICtrl.displayBudget(budget);
     
    }
-
    var updatePercentages = function(){
-
     //1.calculate the percentages
      budgetCtrl.calculatePercentage();
     //2.read percentages from the budgetcontroller
@@ -312,8 +315,7 @@ var controller = (function(budgetCtrl,UICtrl){
             updateBudget();
 
             //6.calculate and update percentages
-            updatePercentages();
-        
+            updatePercentages();  
         }
     };
     var ctrlDeleteItem = function(event){
@@ -339,6 +341,7 @@ return {
         init:function()
         {
             console.log('application has started.');
+            UICtrl.displayMonth();
             UICtrl.displayBudget({
                 budget:0,
                 totalInc:0,
