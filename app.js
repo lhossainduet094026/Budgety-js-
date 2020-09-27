@@ -166,6 +166,11 @@ var UIController = (function(){
      ;
      return (type==='exp'?'-':'+')+' '+int+'.'+dec;
     };
+    var nodeListForEach=function(list,callback){
+        for(var i=0;i<list.length;i++){
+            callback(list[i],i);
+        }
+    }
 //some code here
 return{
          getInput:function(){
@@ -228,11 +233,7 @@ return{
     var fields=document.querySelectorAll(DOMstrings.expensesPercLabel);
     //old browser doesnot support foreach on nodelist .so either we convert into normal array or write own foreach method
     //we are going to write own foreach 
-    var nodeListForEach=function(list,callback){
-        for(var i=0;i<list.length;i++){
-            callback(list[i],i);
-        }
-    }
+    
     nodeListForEach(fields,function(current,index){
         if(percentages[index]>0){
             current.textContent = percentages[index]+'%';
@@ -252,6 +253,15 @@ return{
         month=now.getMonth();
        year = now.getFullYear();
        document.querySelector(DOMstrings.dateLabel).textContent =months[month]+"-"+ year;
+   },
+   changeType:function(){
+    var fields = document.querySelectorAll(
+        DOMstrings.inputType+','+
+        DOMstrings.inputDescription+','+
+        DOMstrings.inputValue);
+nodeListForEach(fields,function(cur){
+cur.classList.toggle('red-focus');
+});
    },
     getDOMstrings:function(){
         return DOMstrings;
@@ -277,6 +287,7 @@ var controller = (function(budgetCtrl,UICtrl){
 
        // document.querySelector(DOM.container).addEventListener('click',ctrlDeleteItem);
        document.querySelector(DOM.container).addEventListener('click',ctrlDeleteItem);
+       document.querySelector(DOM.inputType).addEventListener('change',UICtrl.changeType);
    };
    var updateBudget=function(){
     //1.CALCULATE THE BUDGET
