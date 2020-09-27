@@ -145,6 +145,26 @@ var UIController = (function(){
         expensesPercLabel:'.item__percentage'
 
     };
+     //These function is used for fomating the value in the UI
+     var formatNumber=function(num,type){
+        var numSplit,int,dec;
+     /*-----Formatting rules-----------------
+     + or - before number
+     exactly two decimal point
+     comma separating the thousands
+      */
+     num = Math.abs(num);
+     num = num.toFixed(2);
+     numSplit = num.split('.');
+     int = numSplit[0];
+     
+     if(int.length>3){
+         int = int.substr(0,int.length-3)+','+int.substr(int.length-3,int.length);//input 2310 output 2,310
+     }
+     dec = numSplit[1];
+     ;
+     return (type==='exp'?'-':'+')+' '+int+'.'+dec;
+    };
 //some code here
 return{
          getInput:function(){
@@ -171,7 +191,7 @@ return{
       //replace the placeholder text with some actual data
       newHtml = html.replace('%id%',obj.id);
       newHtml = newHtml.replace('%description%',obj.description);
-      newHtml = newHtml.replace('%value%',obj.value);
+      newHtml = newHtml.replace('%value%',formatNumber(obj.value,type));
      //insert the html into the dom 
      document.querySelector(element).insertAdjacentHTML('beforeend',newHtml);
     },
@@ -224,6 +244,7 @@ return{
       
      });
     },
+   
     getDOMstrings:function(){
         return DOMstrings;
     }
@@ -268,7 +289,8 @@ var controller = (function(budgetCtrl,UICtrl){
     //2.read percentages from the budgetcontroller
      var percentages=budgetCtrl.getPercentages();
      console.log(percentages);
-    //update UI with the new percentages
+    //3.update UI with the new percentages
+    UICtrl.diplayPercentages(percentages);
    }
    
     var ctrlAddItem  = function(){
